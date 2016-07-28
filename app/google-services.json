@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "840242824519",
+    "firebase_url": "https://notifsaarang.firebaseio.com",
+    "project_id": "notifsaarang",
+    "storage_bucket": "notifsaarang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840242824519:android:3987a757f5d6f0c0",
+        "android_client_info": {
+          "package_name": "com.abhishek.android.notifsaarang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840242824519-gis2m6jacfc80stlg0nnp3u1als1773m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxApxq2vwBj6vr1Y8vSslZStqOo849Rzg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

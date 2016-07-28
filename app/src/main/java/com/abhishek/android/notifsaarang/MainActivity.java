@@ -1,6 +1,7 @@
 package com.abhishek.android.notifsaarang;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -10,8 +11,14 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.util.Calendar;
 
@@ -21,11 +28,40 @@ public class MainActivity extends AppCompatActivity {
     private NotificationCompat.Builder mBuilder;
     private PendingIntent resultPendingIntent;
     public static final String ACTION = "com.abhishek.android.notifsaarang.A";
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        int result = googleAPI.isGooglePlayServicesAvailable(this);
+        if(result != ConnectionResult.SUCCESS) {
+            if(googleAPI.isUserResolvableError(result)) {
+                googleAPI.getErrorDialog(this, result,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            }
+            return false;
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        int status = GoogleApiAvailability.isGooglePlayServicesAvailable(this);
+//        if(status != ConnectionResult.SUCCESS) {
+//            if(status == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED){
+//                Toast.makeText(this,"please udpate your google play service",Toast.LENGTH_SHORT).show();
+//            }
+//            else {
+//                Toast.makeText(this, "please download the google play service", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+        if(!checkPlayServices()){
+            Toast.makeText(getApplicationContext(),"OUT OF date GPS",Toast.LENGTH_SHORT).show();
+            return;
+        }
+            //TODO- haven't tried this yet.
 
         String shortmsg = "Open this Notification";
 
@@ -42,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5*1000, alarmIntent);
     }
-
+//Right now, the notification comes only on pressing the button. But this function can be used elsewhere as well.
     public void notify(View view) {
         String newactlongmsg = "This is a primitive notification for opening an entirely new activity which " +
                 "is not linked to the flow of the mobile application of Saarang 2017.";
